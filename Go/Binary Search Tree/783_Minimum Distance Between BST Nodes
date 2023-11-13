@@ -1,0 +1,36 @@
+import "math"
+
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+
+func inOrder(root *TreeNode) []int {
+	if root == nil {
+		return nil
+	}
+	var res []int
+	res = append(res, inOrder(root.Left)...)
+	res = append(res, root.Val)
+	res = append(res, inOrder(root.Right)...)
+	return res
+}
+
+func minDiffInBST(root *TreeNode) int {
+	res := inOrder(root)
+	first, next := 0, 1
+	diff := math.MaxInt64
+	for next < len(res) {
+		curDiff := res[next] - res[first]
+		if curDiff < diff {
+			diff = curDiff
+		}
+		next += 1
+		first += 1
+	}
+	return diff
+}

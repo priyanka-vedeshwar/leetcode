@@ -1,0 +1,57 @@
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+
+func insert(head *TreeNode, val int) *TreeNode {
+	if head == nil {
+		return &TreeNode{Val: val, Left: nil, Right: nil}
+	}
+	return insertNode(head, val)
+}
+
+func insertNode(head *TreeNode, val int) *TreeNode {
+	if head == nil {
+		return nil
+	}
+	if head.Val <= val {
+		if head.Right == nil {
+			head.Right = &TreeNode{Val: val, Left: nil, Right: nil}
+			return head
+		} else {
+			insertNode(head.Right, val)
+		}
+	} else {
+		if head.Left == nil {
+			head.Left = &TreeNode{Val: val, Left: nil, Right: nil}
+			return head
+		} else {
+			insertNode(head.Left, val)
+		}
+	}
+	return head
+}
+
+func inOrder(root *TreeNode) []int {
+	if root == nil {
+		return nil
+	}
+	var res []int
+	res = append(res, inOrder(root.Left)...)
+	res = append(res, root.Val)
+	res = append(res, inOrder(root.Right)...)
+	return res
+}
+
+func increasingBST(root *TreeNode) *TreeNode {
+	var head *TreeNode
+	inOrderRes := inOrder(root)
+	for _, val := range inOrderRes {
+		head = insert(head, val)
+	}
+	return head
+}
