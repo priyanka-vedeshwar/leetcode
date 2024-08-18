@@ -8,18 +8,22 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-class Solution {
+class Solution
+{
 public:
-    int pairSum(ListNode* head) {
+    int pairSum(ListNode *head)
+    {
         vector<int> nums{};
-        while(head != nullptr){
+        while (head != nullptr)
+        {
             nums.push_back(head->val);
             head = head->next;
         }
-        int beg =0,end=nums.size()-1,maxSum=nums[0];
-        while(beg<end){
+        int beg = 0, end = nums.size() - 1, maxSum = nums[0];
+        while (beg < end)
+        {
             int sum = nums[beg] + nums[end];
-            if(sum > maxSum)
+            if (sum > maxSum)
                 maxSum = sum;
             beg++;
             end--;
